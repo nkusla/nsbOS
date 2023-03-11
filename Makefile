@@ -1,6 +1,8 @@
 BUILD_DIR=build
 BOOTLOADER=$(BUILD_DIR)/bootloader/bootloader.o
 DISK_IMG=$(BUILD_DIR)/disk.img
+QEMU_FLAGS=-m 128M
+QEMU_DEBUG_FLAGS=-gdb tcp::26000 -S
 
 .PHONY: bootdisk bootloader
 
@@ -17,4 +19,10 @@ clean:
 	rm -rf build/*
 
 run:
-	qemu-system-x86_64 -m 128M -fda $(DISK_IMG)
+	qemu-system-i386 -fda $(DISK_IMG) $(QEMU_FLAGS)
+
+run_debug:
+	qemu-system-i386 -fda $(DISK_IMG) $(QEMU_FLAGS) $(QEMU_DEBUG_FLAGS)
+
+debug:
+	gdb -x .gdbinit
