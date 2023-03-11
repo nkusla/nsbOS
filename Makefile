@@ -15,3 +15,6 @@ bootdisk: bootloader
 
 clean:
 	rm -rf build/*
+
+run:
+	qemu-system-x86_64 -m 128M -fda $(DISK_IMG)

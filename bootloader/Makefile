@@ -4,7 +4,7 @@ BOOTLOADER_OBJS := $(patsubst %.asm, $(BUILD_DIR)/%.o, $(BOOTLOADER_SRCS))
 
 all: $(BOOTLOADER_OBJS)
 
-$(BUILD_DIR)/%.o: %.asm
+$(BOOTLOADER_OBJS): $(BOOTLOADER_SRCS)
 	mkdir -p $(BUILD_DIR)
 	nasm -f bin $< -o $@
 

@@ -1,22 +1,27 @@
 bits 16
 org 0x7c00
 
-mov ah, 0x0e
-mov si, message
+STACK_BASE_ADDR equ 0x8000
 
-print:
-	mov al, [si]
-	or al, al
-	jz end
-	int 0x10
-	inc si
-	jmp print
+; Setting up stack registers
+mov bp, STACK_BASE_ADDR
+mov sp, bp
 
-end:
-	hlt
+; Clearing screen
+mov ah, 0
+mov al, 3
+int 0x10
 
-message: db "Welcome to nsbOS!", 0
+; Printing welcome message
+mov si, welcome_message
+call print_string
+jmp $
 
+; Includes
+%include "print_string.asm"
+
+welcome_message: db "Welcome to nsbOS!", 0
+
+; Padding and magic number
 times 510-($-$$) db 0
-
 dw 0xaa55
