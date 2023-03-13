@@ -5,7 +5,7 @@ bits 16
 ; Every label address is caculated relative to this address.
 org 0x7c00
 
-STACK_BASE_ADDR equ 0x8000
+STACK_BASE_ADDR equ 0x8400
 
 ; Setting up stack registers
 mov bp, STACK_BASE_ADDR
@@ -17,15 +17,27 @@ mov al, 3
 int 0x10
 
 ; Printing welcome message
-push welcome_message	; Passing message address as parameter to subprogram
+push welcome_msg	; Passing message address as parameter to subprogram
 call print_string
-jmp $
+pop ax				; Popping arguments from stack
 
-; Includes
+; Reading other sectors from disk
+push 0x0001			; Number of sectors to read
+call disk_read
+pop ax
+
+jmp $				; Infinite loop
+
+; Including subprograms
 %include "print_string.asm"
+%include "disk_read.asm"
 
-welcome_message: db "Welcome to nsbOS!", 0
+; Data
+%include "data.asm"
 
 ; Padding and magic number
 times 510-($-$$) db 0
 dw 0xaa55
+
+; Additional sector
+times 512 db 0xda
