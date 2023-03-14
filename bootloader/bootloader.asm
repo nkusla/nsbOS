@@ -5,7 +5,9 @@ bits 16
 ; Every label address is caculated relative to this address.
 org 0x7c00
 
+; Constants
 STACK_BASE_ADDR equ 0x8400
+WRITE_ADDR equ 0x7e05
 
 ; Setting up stack registers
 mov bp, STACK_BASE_ADDR

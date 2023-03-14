@@ -1,7 +1,5 @@
 ; Subprogram that reads n sectors from disk
 
-WRITE_ADDR equ 0x7e05
-
 disk_read:
 	push bp
 	mov bp, sp
