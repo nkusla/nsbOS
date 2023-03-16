@@ -28,7 +28,7 @@ gdt_data:
 gdt_end:
 
 gdt_descriptor:
-	dw gdt_start - gdt_end - 1	; Size of GDT (16 bits)
+	dw gdt_end - gdt_start - 1	; Size of GDT (16 bits)
 	dd gdt_start				; Address of GDT (32 bits)
 
 CODE_SEG equ gdt_code - gdt_start

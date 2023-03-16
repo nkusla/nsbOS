@@ -31,4 +31,4 @@ init_pm:
 	mov ebp, STACK_BASE_ADDR
 	mov esp, ebp
 
-	jmp END
+	jmp kernel_start

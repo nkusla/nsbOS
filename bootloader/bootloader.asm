@@ -9,8 +9,9 @@ bits 16
 org 0x7c00
 
 ; Constants
-STACK_BASE_ADDR equ 0x9000
-WRITE_ADDR equ 0x7e05
+STACK_BASE_ADDR equ 0x9f00
+KERNEL_ADDR equ 0x7400
+NUM_SECTORS equ 3
 
 ; Setting up stack registers
 mov bp, STACK_BASE_ADDR
@@ -22,11 +23,11 @@ mov al, 3
 int 0x10
 
 ; Printing welcome message
-push welcome_msg	; Passing message address as parameter to subprogram
+push welcome_msg		; Passing message address as parameter to subprogram
 call print_string_rm
 
 ; Reading other sectors from disk and wiritng to memory
-push word 1			; Number of sectors to read
+push word NUM_SECTORS	; Number of sectors to read
 call disk_read
 
 ; Protected mode message
@@ -36,21 +37,22 @@ call print_string_rm
 ; Switching to protected 32-bit mode
 call switch_to_pm
 
-END:
-	jmp $			; Infinite loop
-
-; Including subprograms
+; Includes (real mode)
 %include "print_string_rm.asm"
 %include "disk_read.asm"
 %include "gdt.asm"
+%include "data.asm"
+
+; Includes (protected mode)
 %include "switch_to_pm.asm"
 
-; Data
-%include "data.asm"
+kernel_start:
+	call KERNEL_ADDR	; calling kernel code
+	jmp $				; Infinite loop
 
 ; Padding and magic number
 times 510-($-$$) db 0
 dw 0xaa55
 
 ; Additional sector
-times 512 db 0xda
+; times 512 db 0xda

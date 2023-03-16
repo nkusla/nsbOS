@@ -15,7 +15,7 @@ disk_read:
 	; Setting ex:bs register pair for address to write to
 	mov bx, 0x0
 	mov es, bx
-	mov bx, WRITE_ADDR
+	mov bx, KERNEL_ADDR
 	int 0x13
 
 	jc disk_error
