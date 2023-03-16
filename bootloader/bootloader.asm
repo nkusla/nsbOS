@@ -23,24 +23,24 @@ int 0x10
 
 ; Printing welcome message
 push welcome_msg	; Passing message address as parameter to subprogram
-call print_string
+call print_string_rm
 
 ; Reading other sectors from disk and wiritng to memory
-push 0x0001			; Number of sectors to read
+push word 1			; Number of sectors to read
 call disk_read
 
 ; Protected mode message
-push switched_to_pm_msg
-call print_string
+push switching_to_pm_msg
+call print_string_rm
 
 ; Switching to protected 32-bit mode
 call switch_to_pm
 
 END:
-	jmp $	; Infinite loop
+	jmp $			; Infinite loop
 
 ; Including subprograms
-%include "print_string.asm"
+%include "print_string_rm.asm"
 %include "disk_read.asm"
 %include "gdt.asm"
 %include "switch_to_pm.asm"

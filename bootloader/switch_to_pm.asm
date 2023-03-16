@@ -12,13 +12,14 @@ switch_to_pm:
 	or eax, 0x1
 	mov cr0, eax
 
-	; Forcing CPU to flush instruction pipeline
+	; Forcing CPU to flush instruction pipeline and
+	; setting up cs register
 	jmp CODE_SEG:init_pm
 
 bits 32
 
 init_pm:
-	; Initializing segment register
+	; Initializing segment registers
 	mov ax, DATA_SEG
 	mov ds, ax
 	mov ss, ax

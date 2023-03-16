@@ -27,14 +27,12 @@ disk_read:
 
 	; If reading was successful, write appropriate message
 	push disk_read_msg
-	call print_string
-	pop ax
+	call print_string_rm
 	jmp disk_end
 
 disk_error:
 	push disk_error_msg
-	call print_string
-	pop ax
+	call print_string_rm
 
 disk_end:
 	mov sp, bp
