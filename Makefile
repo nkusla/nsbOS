@@ -1,6 +1,6 @@
 BUILD_DIR=build
-BOOTLOADER=$(BUILD_DIR)/bootloader/bootloader.o
-KERNEL=$(BUILD_DIR)/kernel/kernel.o
+BOOTLOADER=$(BUILD_DIR)/bootloader/bootloader.bin
+KERNEL=$(BUILD_DIR)/kernel/kernel.bin
 DISK_IMG=$(BUILD_DIR)/disk.img
 QEMU_FLAGS=-m 128M
 QEMU_DEBUG_FLAGS=-gdb tcp::26000 -S

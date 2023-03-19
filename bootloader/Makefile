@@ -1,12 +1,12 @@
 BUILD_DIR=../build/bootloader
 BOOTLOADER_SRCS=bootloader.asm
-BOOTLOADER_OBJ=bootloader.o
-NASM_FLAGS=-g -f bin
+BOOTLOADER_BIN=bootloader.bin
+NASM_FLAGS=-f bin
 NASM_MAP_FILE=debug.map
 
-all: $(BUILD_DIR)/$(BOOTLOADER_OBJ)
+all: $(BUILD_DIR)/$(BOOTLOADER_BIN)
 
-$(BUILD_DIR)/$(BOOTLOADER_OBJ): $(BOOTLOADER_SRCS)
+$(BUILD_DIR)/$(BOOTLOADER_BIN): $(BOOTLOADER_SRCS)
 	mkdir -p $(BUILD_DIR)
 	nasm $< -o $@ $(NASM_FLAGS)
 	mv $(NASM_MAP_FILE) $(BUILD_DIR)

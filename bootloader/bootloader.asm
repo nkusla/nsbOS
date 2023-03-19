@@ -10,7 +10,7 @@ org 0x7c00
 
 ; Constants
 STACK_BASE_ADDR equ 0x9f00
-KERNEL_ADDR equ 0x7400
+KERNEL_LOAD_ADDR equ 0x7400
 NUM_SECTORS equ 3
 
 ; Setting up stack registers
@@ -47,8 +47,8 @@ call switch_to_pm
 %include "switch_to_pm.asm"
 
 kernel_start:
-	call KERNEL_ADDR	; calling kernel code
-	jmp $				; Infinite loop
+	call KERNEL_LOAD_ADDR	; calling kernel code
+	jmp $					; Infinite loop
 
 ; Padding and magic number
 times 510-($-$$) db 0
