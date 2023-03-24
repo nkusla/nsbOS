@@ -4,7 +4,7 @@ BOOTLOADER_BIN=bootloader.bin
 NASM_FLAGS=-f bin
 NASM_MAP_FILE=debug.map
 
-all: $(BUILD_DIR)/$(BOOTLOADER_BIN)
+default: $(BUILD_DIR)/$(BOOTLOADER_BIN)
 
 $(BUILD_DIR)/$(BOOTLOADER_BIN): $(BOOTLOADER_SRCS)
 	mkdir -p $(BUILD_DIR)

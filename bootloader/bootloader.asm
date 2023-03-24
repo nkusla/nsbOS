@@ -10,8 +10,8 @@ org 0x7c00
 
 ; Constants
 STACK_BASE_ADDR equ 0x9f00
-KERNEL_LOAD_ADDR equ 0x7400
-NUM_SECTORS equ 3
+KERNEL_LOAD_ADDR equ 0x7e00
+NUM_SECTORS equ 12
 
 ; Setting up stack registers
 mov bp, STACK_BASE_ADDR

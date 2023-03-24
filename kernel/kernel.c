@@ -1,4 +1,7 @@
+#include "../drivers/video.h"
+
 void main() {
-	char* video_memory = (char*) 0xb8000;
-	*video_memory = '#';
+	clear_screen();
+	char str[] = "Hello world!";
+	print_string(str);
 }
