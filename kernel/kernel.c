@@ -2,6 +2,6 @@
 
 void main() {
 	clear_screen();
-	char str[] = "Hello world!";
+	uint8_t str[] = "Hello kernel!";
 	print_string(str);
 }

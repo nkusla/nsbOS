@@ -1,5 +1,5 @@
 ; Creates file which is used for debugging
-[map all debug.map]
+[map all bootloader.map]
 
 ; Indication that we are running in 16-bit real mode
 bits 16

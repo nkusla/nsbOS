@@ -33,6 +33,7 @@ disk_read:
 disk_error:
 	push disk_error_msg
 	call print_string_rm
+	jmp $
 
 disk_end:
 	mov sp, bp

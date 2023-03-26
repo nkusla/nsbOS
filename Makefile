@@ -1,11 +1,12 @@
 BUILD_DIR=build
+DEBUG_DIR=debug
 BOOTLOADER=$(BUILD_DIR)/bootloader/bootloader.bin
 KERNEL=$(BUILD_DIR)/kernel/kernel.bin
 DISK_IMG=$(BUILD_DIR)/disk.img
 QEMU_FLAGS=-m 128M
 QEMU_DEBUG_FLAGS=-gdb tcp::26000 -S
 
-.PHONY: bootloader kernel bootdisk
+.PHONY: bootloader kernel bootdisk debug
 
 default: bootdisk
 
@@ -21,7 +22,7 @@ bootdisk: bootloader kernel
 	dd conv=notrunc if=$(KERNEL) of=$(DISK_IMG) bs=512 count=12 seek=1
 
 clean:
-	rm -rf build/*
+	rm -rf $(BUILD_DIR)/* $(DEBUG_DIR)/*
 
 run:
 	qemu-system-i386 -fda $(DISK_IMG) $(QEMU_FLAGS)
