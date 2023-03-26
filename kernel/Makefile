@@ -5,11 +5,9 @@ DRIVERS_DIR=../drivers
 
 DRIVERS_SRC:=$(wildcard $(DRIVERS_DIR)/*.c)
 DRIVERS_OBJS:=$(patsubst $(DRIVERS_DIR)/%.c, $(DRIVERS_BUILD_DIR)/%.o, $(DRIVERS_SRC))
-DRIVERS_SYMS:=$(patsubst $(DRIVERS_BUILD_DIR)/%.o, $(DEBUG_DIR)/%.sym, $(DRIVERS_OBJS))
 
 KERNEL_SRC:=$(wildcard *.c)
 KERNEL_OBJS:=$(patsubst %.c, $(BUILD_DIR)/%.o, $(KERNEL_SRC))
-KERNEL_SYMS:=$(patsubst %.c, $(DEBUG_DIR)/%.debug, $(KERNEL_SRC))
 KERNEL_ELF=$(BUILD_DIR)/kernel.elf
 KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
@@ -33,8 +31,8 @@ kernel: $(KERNEL_SRC) drivers
 	gcc $(KERNEL_SRC) -o $(KERNEL_OBJS) $(GCC_FLAGS)
 	nasm kernel_init.asm -o $(BUILD_DIR)/kernel_init.o $(NASM_FLAGS)
 	ld $(BUILD_DIR)/kernel_init.o $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
-	objcopy --only-keep-debug $(KERNEL_ELF) $(KERNEL_DEBUG)
 	objcopy -O binary $(KERNEL_ELF) $(KERNEL_BIN)
+	objcopy --only-keep-debug $(KERNEL_ELF)
 	mv $(KERNEL_ELF) $(KERNEL_DEBUG)
 
 clean:
