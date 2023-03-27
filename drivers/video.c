@@ -17,10 +17,10 @@ void set_cursor_offset(uint16_t offset) {
 	offset /= 2;
 
 	port_byte_out(VIDEO_CONTROL_REG, VIDEO_CURSOR_OFFSET_LOW);
-	port_byte_out(VIDEO_DATA_REG, (uint8_t) (offset & 0xff));
+	port_byte_out(VIDEO_DATA_REG, (uint8_t)(offset & 0xff));
 
 	port_byte_out(VIDEO_CONTROL_REG, VIDEO_CURSOR_OFFSET_HIGH);
-	port_byte_out(VIDEO_DATA_REG, (uint8_t) (offset >> 8));
+	port_byte_out(VIDEO_DATA_REG, (uint8_t)(offset >> 8));
 }
 
 void clear_screen() {

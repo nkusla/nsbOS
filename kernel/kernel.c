@@ -1,4 +1,5 @@
 #include "../drivers/video.h"
+#include "idt.h"
 
 void main() {
 	clear_screen();

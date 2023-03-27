@@ -13,7 +13,7 @@ KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
 
 KERNEL_LOAD_ADDR=0x7e00
-GCC_FLAGS=-g -c -m32 -fno-PIC -fno-stack-protector
+GCC_FLAGS=-g -c -m32 -fno-pic -ffreestanding -fno-stack-protector
 NASM_FLAGS=-g -f elf32
 LD_FLAGS=-m elf_i386 --oformat elf32-i386 -Ttext $(KERNEL_LOAD_ADDR)
 
@@ -28,12 +28,12 @@ drivers: $(DRIVERS_SRC)
 
 kernel: $(KERNEL_SRC) drivers
 	mkdir -p $(BUILD_DIR)
-	gcc $(KERNEL_SRC) -o $(KERNEL_OBJS) $(GCC_FLAGS)
+	gcc $(KERNEL_SRC) $(GCC_FLAGS)
+	mv *.o $(BUILD_DIR)
 	nasm kernel_init.asm -o $(BUILD_DIR)/kernel_init.o $(NASM_FLAGS)
 	ld $(BUILD_DIR)/kernel_init.o $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
 	objcopy -O binary $(KERNEL_ELF) $(KERNEL_BIN)
-	objcopy --only-keep-debug $(KERNEL_ELF)
-	mv $(KERNEL_ELF) $(KERNEL_DEBUG)
+	objcopy --only-keep-debug $(KERNEL_ELF) $(KERNEL_DEBUG)
 
 clean:
 	rm -rf $(BUILD_DIR) $(DRIVERS_BUILD_DIR)
