@@ -1,3 +1,5 @@
+include ../Makefile.colors
+
 BUILD_DIR=../build/bootloader
 DEBUG_DIR=../debug
 BOOTLOADER_SRCS=bootloader.asm
@@ -8,9 +10,10 @@ NASM_MAP_FILE=bootloader.map
 default: $(BUILD_DIR)/$(BOOTLOADER_BIN)
 
 $(BUILD_DIR)/$(BOOTLOADER_BIN): $(BOOTLOADER_SRCS)
-	mkdir -p $(BUILD_DIR)
+	@echo -e "$(YELLOW)Building bootloader source code!$(RESET)"
+	@mkdir -p $(BUILD_DIR)
 	nasm $< -o $@ $(NASM_FLAGS)
-	mkdir -p $(DEBUG_DIR)
+	@mkdir -p $(DEBUG_DIR)
 	mv $(NASM_MAP_FILE) $(DEBUG_DIR)
 
 clean:

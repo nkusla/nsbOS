@@ -1,3 +1,5 @@
+include ../Makefile.colors
+
 BUILD_DIR=../build/kernel
 DEBUG_DIR=../debug
 DRIVERS_BUILD_DIR=../build/drivers
@@ -13,21 +15,24 @@ KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
 
 KERNEL_LOAD_ADDR=0x7e00
+DATA_LOAD_ADDR=0x8500
 GCC_FLAGS=-g -c -m32 -fno-pic -ffreestanding -fno-stack-protector
 NASM_FLAGS=-g -f elf32
-LD_FLAGS=-m elf_i386 --oformat elf32-i386 -Ttext $(KERNEL_LOAD_ADDR)
+LD_FLAGS=-m elf_i386 --oformat elf32-i386 -Ttext $(KERNEL_LOAD_ADDR) -Tdata $(DATA_LOAD_ADDR)
 
 .PHONY: kernel drivers
 
 default: kernel drivers
 
 drivers: $(DRIVERS_SRC)
-	mkdir -p $(DRIVERS_BUILD_DIR)
+	@echo -e "$(YELLOW)Building drivers source code!$(RESET)"
+	@mkdir -p $(DRIVERS_BUILD_DIR)
 	gcc $^ $(GCC_FLAGS)
 	mv *.o $(DRIVERS_BUILD_DIR)
 
 kernel: $(KERNEL_SRC) drivers
-	mkdir -p $(BUILD_DIR)
+	@echo -e "$(YELLOW)Building kernel source code!$(RESET)"
+	@mkdir -p $(BUILD_DIR)
 	gcc $(KERNEL_SRC) $(GCC_FLAGS)
 	mv *.o $(BUILD_DIR)
 	nasm kernel_init.asm -o $(BUILD_DIR)/kernel_init.o $(NASM_FLAGS)

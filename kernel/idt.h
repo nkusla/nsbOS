@@ -12,6 +12,13 @@ typedef struct {
 	uint16_t high_offset;
 } __attribute__((packed)) idt_gate_t;
 
-void register_idt_gate(uint8_t index, uint32_t handler);
+typedef struct {
+	uint16_t size;
+	uint32_t offset;
+} __attribute__((packed)) idt_descriptor_t;
+
+void idt_gate_load(uint8_t index, uint32_t handler);
+void idt_load();
+void idt_setup();
 
 #endif
