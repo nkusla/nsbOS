@@ -10,6 +10,10 @@ DRIVERS_OBJS:=$(patsubst $(DRIVERS_DIR)/%.c, $(DRIVERS_BUILD_DIR)/%.o, $(DRIVERS
 
 KERNEL_SRC:=$(wildcard *.c)
 KERNEL_OBJS:=$(patsubst %.c, $(BUILD_DIR)/%.o, $(KERNEL_SRC))
+
+KERNEL_ASM:=$(filter-out kernel_init.asm, $(wildcard *.asm))
+KERNEL_ASM_OBJS:=$(patsubst %.asm, $(BUILD_DIR)/%.o, $(KERNEL_ASM))
+
 KERNEL_ELF=$(BUILD_DIR)/kernel.elf
 KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
@@ -34,11 +38,15 @@ kernel: $(KERNEL_SRC) drivers
 	@echo -e "$(YELLOW)Building kernel source code!$(RESET)"
 	@mkdir -p $(BUILD_DIR)
 	gcc $(KERNEL_SRC) $(GCC_FLAGS)
-	mv *.o $(BUILD_DIR)
 	nasm kernel_init.asm -o $(BUILD_DIR)/kernel_init.o $(NASM_FLAGS)
-	ld $(BUILD_DIR)/kernel_init.o $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
+	nasm $(KERNEL_ASM) $(NASM_FLAGS)
+	mv *.o $(BUILD_DIR)
+	ld $(BUILD_DIR)/kernel_init.o $(KERNEL_ASM_OBJS) $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
 	objcopy -O binary $(KERNEL_ELF) $(KERNEL_BIN)
 	objcopy --only-keep-debug $(KERNEL_ELF) $(KERNEL_DEBUG)
+
+test:
+	echo $(KERNEL_ASM)
 
 clean:
 	rm -rf $(BUILD_DIR) $(DRIVERS_BUILD_DIR)

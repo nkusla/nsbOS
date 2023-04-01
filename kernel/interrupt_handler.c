@@ -35,6 +35,6 @@ uint8_t* exception_messages[] = {
 	"Reserved"
 };
 
-void __attribute__((cdecl)) interrupt_generic_handler(interrupt_frame_t frame) {
-
+void __attribute__((cdecl)) isr_generic_handler(interrupt_frame_t frame) {
+	print_string(exception_messages[frame.int_num]);
 }

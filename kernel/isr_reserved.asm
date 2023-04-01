@@ -1,12 +1,14 @@
 ; Implementation of first 32 interrupts (exceptions) which are reserved by x86 arch
 
 bits 32
-extern interrupt_generic_handler
+extern isr_generic_handler
+
+section .text
 
 interrupt_frame:
 	pushad
 
-	call interrupt_generic_handler
+	call isr_generic_handler
 
 	popad
 	add esp, 8
