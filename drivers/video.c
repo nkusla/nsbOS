@@ -61,3 +61,30 @@ void print_string(uint8_t* str, uint8_t foreground) {
 	video_memory[cursor_offset+1] = set_color_byte(WHITE, BLACK);;
 	set_cursor_offset(cursor_offset);
 }
+
+void print_int(uint32_t num, uint8_t foreground) {
+	uint8_t temp;
+	uint8_t str[] = "\0\0\0\0\0\0\0\0\0";
+	uint8_t i = 0, j = 0;
+
+	while(num != 0) {
+		temp = num % 10;
+		str[i++] = temp + 48;
+		num /= 10;
+	}
+	if(str[0] != 0) {
+		str[i--] = 0;
+
+		while(j < i) {
+			temp = str[j];
+			str[j] = str[i];
+			str[i] = temp;
+			++j; --i;
+		}
+	}
+	else {
+		str[0] = '0';
+	}
+
+	print_string(str, foreground);
+}
