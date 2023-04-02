@@ -20,7 +20,7 @@ void idt_load() {
 }
 
 void idt_setup() {
-	// Registering first 32 reserved interrupts
+	// Loading fisrt 32 internal interrupt routines (ISR)
 	idt_gate_load(0, &isr0);
 	idt_gate_load(1, &isr1);
 	idt_gate_load(2, &isr2);
@@ -54,7 +54,40 @@ void idt_setup() {
 	idt_gate_load(30, &isr30);
 	idt_gate_load(31, &isr31);
 
-	idt_load();
+	// Remmaping Programmable Interrupt Controller (PIC)
+	port_byte_out(PRIMARY_PIC_COMMAND_PORT, ICW1_INIT);
+	port_byte_out(SECONDARY_PIC_COMMAND_PORT, ICW1_INIT);
 
-	__asm__ __volatile__ ("sti");
+	port_byte_out(PRIMARY_PIC_DATA_PORT, ICW2_OFFSET_32);
+	port_byte_out(SECONDARY_PIC_DATA_PORT, ICW2_OFFSET_40);
+
+	port_byte_out(PRIMARY_PIC_DATA_PORT, ICW3_IRQ2);
+	port_byte_out(SECONDARY_PIC_DATA_PORT, ICW3_SECONDARY);
+
+	port_byte_out(PRIMARY_PIC_DATA_PORT, ICW4_8086_MODE);
+	port_byte_out(SECONDARY_PIC_DATA_PORT, ICW4_8086_MODE);
+
+	port_byte_out(PRIMARY_PIC_DATA_PORT, OCW1_ENABLE);
+	port_byte_out(SECONDARY_PIC_DATA_PORT, OCW1_ENABLE);
+
+	// Loading 15 interrupt request routines (IRQ)
+	idt_gate_load(32, &irq0);
+	idt_gate_load(33, &irq1);
+	idt_gate_load(34, &irq2);
+	idt_gate_load(35, &irq3);
+	idt_gate_load(36, &irq4);
+	idt_gate_load(37, &irq5);
+	idt_gate_load(38, &irq6);
+	idt_gate_load(39, &irq7);
+	idt_gate_load(40, &irq8);
+	idt_gate_load(41, &irq9);
+	idt_gate_load(42, &irq10);
+	idt_gate_load(43, &irq11);
+	idt_gate_load(44, &irq12);
+	idt_gate_load(45, &irq13);
+	idt_gate_load(46, &irq14);
+	idt_gate_load(47, &irq15);
+
+	// Passing IDT descriptor to CPU
+	idt_load();
 }

@@ -2,13 +2,8 @@
 #define VIDEO_MACROS_H
 
 #define VIDEO_MEMORY_ADDR 	0xb8000
-#define VIDEO_WIDTH 		80
-#define VIDEO_HEIGHT 		25
-
-#define VIDEO_CONTROL_REG			0x3d4
-#define VIDEO_DATA_REG				0x3d5
-#define VIDEO_CURSOR_OFFSET_LOW		0x0f
-#define VIDEO_CURSOR_OFFSET_HIGH	0x0e
+#define VIDEO_WIDTH 		160
+#define VIDEO_HEIGHT 		50
 
 #define BLACK		0x0
 #define WHITE		0xf

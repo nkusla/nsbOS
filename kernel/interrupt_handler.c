@@ -36,5 +36,11 @@ uint8_t* exception_messages[] = {
 };
 
 void __attribute__((cdecl)) isr_generic_handler(interrupt_frame_t frame) {
-	print_string(exception_messages[frame.int_num]);
+	print_string(exception_messages[frame.int_num], LIGHT_RED);
+}
+
+void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
+	port_byte_out(PRIMARY_PIC_COMMAND_PORT, PIC_EOI);
+	if(frame.int_num < 40)
+		port_byte_out(SECONDARY_PIC_COMMAND_PORT, PIC_EOI);
 }
