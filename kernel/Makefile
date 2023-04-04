@@ -20,7 +20,8 @@ KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
 
 KERNEL_LOAD_ADDR=0x7e00
 DATA_LOAD_ADDR=0x9900
-GCC_FLAGS=-g -c -m32 -fno-pic -ffreestanding -fno-stack-protector
+GCC_WARNINGS=-Wno-incompatible-pointer-types
+GCC_FLAGS=-g -c -m32 -fno-pic -ffreestanding -fno-stack-protector $(GCC_WARNINGS)
 NASM_FLAGS=-g -f elf32
 LD_FLAGS=-m elf_i386 --oformat elf32-i386 -Ttext $(KERNEL_LOAD_ADDR) -Tdata $(DATA_LOAD_ADDR)
 

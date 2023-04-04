@@ -35,12 +35,27 @@ uint8_t* exception_messages[] = {
 	"Reserved"
 };
 
+interrupt_handler_t interrupt_handlers[256] = {0x0};
+
 void __attribute__((cdecl)) isr_generic_handler(interrupt_frame_t frame) {
 	print_string(exception_messages[frame.int_num], LIGHT_RED);
+	print_string("\n", LIGHT_RED);
 }
 
 void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
+	interrupt_handlers[frame.int_num]();
+
 	port_byte_out(PRIMARY_PIC_COMMAND_PORT, PIC_EOI);
 	if(frame.int_num < 40)
 		port_byte_out(SECONDARY_PIC_COMMAND_PORT, PIC_EOI);
+}
+
+static void __attribute__((cdecl)) system_clock_handler() { }
+
+void __attribute__((cdecl)) interrupt_handlers_setup() {
+	for(int i = 0; i <= 31; ++i)
+		interrupt_handlers[i] = isr_generic_handler;
+
+	interrupt_handlers[IRQ0] = system_clock_handler;
+	interrupt_handlers[IRQ1] = keyboard_scancode_read;
 }
