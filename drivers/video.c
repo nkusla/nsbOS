@@ -58,7 +58,21 @@ void print_string(uint8_t* str, uint8_t foreground) {
 	}
 
 	video_memory[cursor_offset] = ' ';
-	video_memory[cursor_offset+1] = set_color_byte(WHITE, BLACK);;
+	video_memory[cursor_offset+1] = set_color_byte(WHITE, BLACK);
+	set_cursor_offset(cursor_offset);
+}
+
+void print_char(uint8_t c, uint8_t foreground) {
+	uint16_t cursor_offset = get_cursor_offset();
+	uint8_t* video_memory = (uint8_t*) VIDEO_MEMORY_ADDR;
+	uint8_t color = set_color_byte(foreground, BLACK);
+
+	video_memory[cursor_offset] = c;
+	video_memory[cursor_offset+1] = color;
+	cursor_offset += 2;
+
+	video_memory[cursor_offset] = ' ';
+	video_memory[cursor_offset+1] = set_color_byte(WHITE, BLACK);
 	set_cursor_offset(cursor_offset);
 }
 
