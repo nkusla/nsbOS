@@ -8,8 +8,8 @@ irq_interrupt_frame:
 
 	call irq_generic_handler
 
-	add esp, 8
 	popad
+	add esp, 8
 	iret
 
 global irq0

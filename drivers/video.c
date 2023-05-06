@@ -78,7 +78,7 @@ void print_char(uint8_t c, uint8_t foreground) {
 
 void print_int(uint32_t num, uint8_t foreground) {
 	uint8_t temp;
-	uint8_t str[] = "\0\0\0\0\0\0\0\0\0";
+	uint8_t str[] = "\0\0\0\0\0\0\0\0\0\0";
 	uint8_t i = 0, j = 0;
 
 	while(num != 0) {

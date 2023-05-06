@@ -3,6 +3,7 @@ add-symbol-file debug/kernel.dbg
 
 # Breakpoints
 b *0x7c00
+b *0x7d2b
 
 # Main configuration
 set architecture i386

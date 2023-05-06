@@ -18,12 +18,11 @@ KERNEL_ELF=$(BUILD_DIR)/kernel.elf
 KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
 
-KERNEL_LOAD_ADDR=0x7e00
-DATA_LOAD_ADDR=0x9900
 GCC_WARNINGS=-Wno-incompatible-pointer-types
 GCC_FLAGS=-g -c -m32 -fno-pic -ffreestanding -fno-stack-protector $(GCC_WARNINGS)
 NASM_FLAGS=-g -f elf32
-LD_FLAGS=-m elf_i386 --oformat elf32-i386 -Ttext $(KERNEL_LOAD_ADDR) -Tdata $(DATA_LOAD_ADDR)
+LD_FLAGS=-m elf_i386 --oformat elf32-i386
+LD_SCRIPT=link.ld
 
 .PHONY: kernel drivers
 
@@ -43,7 +42,7 @@ kernel: $(KERNEL_SRC) drivers
 	nasm isr.asm $(NASM_FLAGS)
 	nasm irq.asm $(NASM_FLAGS)
 	mv *.o $(BUILD_DIR)
-	ld $(BUILD_DIR)/kernel_init.o $(KERNEL_ASM_OBJS) $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
+	ld -T $(LD_SCRIPT) $(BUILD_DIR)/kernel_init.o $(KERNEL_ASM_OBJS) $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
 	objcopy -O binary $(KERNEL_ELF) $(KERNEL_BIN)
 	objcopy --only-keep-debug $(KERNEL_ELF) $(KERNEL_DEBUG)
 

@@ -5,14 +5,12 @@
 
 void main() {
 	clear_screen();
-	print_string("Kernel started\n", LIGHT_GREEN);
 
+	// Setting up Interrupt descriptor table and
+	// array of interrupt handlers
 	idt_setup();
-	__asm__ __volatile__ ("sti");
-	print_string("Interrupt descriptor table initiated\n", LIGHT_CYAN);
-
 	interrupt_handlers_setup();
-	print_string("Interrupt handlers initiated\n", LIGHT_CYAN);
+	__asm__ __volatile__ ("sti");
 
 	print_string("\n-> ", LIGHT_GREEN);
 }
