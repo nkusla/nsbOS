@@ -41,6 +41,7 @@ kernel: $(KERNEL_SRC) drivers
 	nasm kernel_init.asm -o $(BUILD_DIR)/kernel_init.o $(NASM_FLAGS)
 	nasm isr.asm $(NASM_FLAGS)
 	nasm irq.asm $(NASM_FLAGS)
+	nasm sir.asm $(NASM_FLAGS)
 	mv *.o $(BUILD_DIR)
 	ld -T $(LD_SCRIPT) $(BUILD_DIR)/kernel_init.o $(KERNEL_ASM_OBJS) $(DRIVERS_OBJS) $(KERNEL_OBJS) -o $(KERNEL_ELF) $(LD_FLAGS)
 	objcopy -O binary $(KERNEL_ELF) $(KERNEL_BIN)

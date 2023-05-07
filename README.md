@@ -33,7 +33,8 @@ Comming soon...
   - [x] Interrupt descriptor table
   - [ ] ...
 - [ ] Other
-  - [ ] Implement basic string library
+  - [ ] Implement basic stdio library
   - [ ] Reimplement print_string method
-  - [ ] Write linker script
+  - [x] Write linker script
   - [ ] Makefiles refactoring
+  - [x] Simple user program

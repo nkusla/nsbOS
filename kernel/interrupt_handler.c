@@ -50,6 +50,13 @@ void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
 		port_byte_out(SECONDARY_PIC_COMMAND_PORT, PIC_EOI);
 }
 
+void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame) {
+	if(frame.eax == 4) {
+		uint8_t* str = (uint8_t*) frame.ecx;
+		print_string(str, LIGHT_BLUE);
+	}
+}
+
 static void __attribute__((cdecl)) system_clock_handler() { }
 
 void __attribute__((cdecl)) interrupt_handlers_setup() {
@@ -58,4 +65,5 @@ void __attribute__((cdecl)) interrupt_handlers_setup() {
 
 	interrupt_handlers[IRQ0] = system_clock_handler;
 	interrupt_handlers[IRQ1] = keyboard_scancode_read;
+	interrupt_handlers[128] = sys_call_handler;
 }

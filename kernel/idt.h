@@ -14,6 +14,7 @@ extern uint32_t isr24, isr25, isr26, isr27, isr28, isr29, isr30, isr31;
 // External visibility of Interrupt Request Routines
 extern uint32_t irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq7;
 extern uint32_t irq8, irq9, irq10, irq11, irq12, irq13, irq14, irq15;
+extern uint32_t sir128;
 
 typedef struct {
 	uint16_t low_offset;

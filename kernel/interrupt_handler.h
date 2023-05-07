@@ -20,6 +20,7 @@ extern uint8_t* exception_messages[];
 
 void __attribute__((cdecl)) isr_generic_handler(interrupt_frame_t frame);
 void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame);
+void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame);
 void __attribute__((cdecl)) interrupt_handlers_setup();
 
 #endif

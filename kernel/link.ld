@@ -11,4 +11,6 @@ SECTIONS {
 		*(.data)
 		*(.rodata)
 	}
+
+	. = 0xa000;
 }

@@ -1,5 +1,6 @@
 # Debug symbols
 add-symbol-file debug/kernel.dbg
+add-symbol-file debug/shell.dbg
 
 # Breakpoints
 b *0x7c00

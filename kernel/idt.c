@@ -88,6 +88,9 @@ void idt_setup() {
 	idt_gate_load(46, &irq14);
 	idt_gate_load(47, &irq15);
 
+	// Loading software interrupt routines
+	idt_gate_load(128, &sir128);
+
 	// Passing IDT descriptor to CPU
 	idt_load();
 }
