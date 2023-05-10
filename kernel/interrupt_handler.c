@@ -51,10 +51,22 @@ void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
 }
 
 void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame) {
+	uint8_t* str = (uint8_t*) frame.ecx;
+	uint32_t size = frame.edx;
+	uint32_t i = 0;
 	if(frame.eax == 4) {
-		uint8_t* str = (uint8_t*) frame.ecx;
 		print_string(str, LIGHT_BLUE);
 	}
+	else if(frame.eax == 3) {
+		while(!input_finished) {
+			keyboard_scancode_read();
+		}
+		while(keyboard_buffer[i] != '\n' && i <= size) {
+			str[i] = keyboard_buffer[i];
+			i++;
+		}
+	}
+	else {}
 }
 
 static void __attribute__((cdecl)) system_clock_handler() { }

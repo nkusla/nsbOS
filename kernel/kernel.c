@@ -15,5 +15,5 @@ void main() {
 	print_string("\n-> ", LIGHT_GREEN);
 
 	// Calling shell program
-	__asm__ __volatile__ ("call 0x9e00");
+	__asm__ __volatile__ ("call 0x9a00");
 }

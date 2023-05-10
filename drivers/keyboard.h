@@ -14,7 +14,12 @@
 #define LEFT_ALT	0x38
 #define CAPS_LOCK	0x3a
 
+#define BUFFER_SIZE 100
+
 #define PS2_CONTROLLER_DATA_PORT 0x60
+
+extern uint8_t keyboard_buffer[BUFFER_SIZE];
+extern uint8_t input_finished;
 
 void keyboard_scancode_print(uint8_t scancode);
 uint8_t keyboard_scancode_read();

@@ -12,6 +12,10 @@ uint8_t scancode_to_char[] = {
 	'?', ' ', '?', '?'
 };
 
+uint8_t keyboard_buffer[BUFFER_SIZE] = {0};
+uint8_t input_finished = 0;
+uint32_t buffer_index = 0;
+
 void keyboard_scancode_print(uint8_t scancode) {
 	if(scancode == ESC) {
 		print_string("\nCPU halted!\n", LIGHT_RED);
@@ -19,6 +23,9 @@ void keyboard_scancode_print(uint8_t scancode) {
 	}
 	else if(scancode == ENTER) {
 		print_string("\n-> ", LIGHT_GREEN);
+		keyboard_buffer[buffer_index] = '\n';
+		input_finished = 1;
+		buffer_index = 0;
 	}
 	else if(scancode <= 0x3a && scancode_to_char[scancode] != '?') {
 		print_char(scancode_to_char[scancode], WHITE);
@@ -28,6 +35,7 @@ void keyboard_scancode_print(uint8_t scancode) {
 
 uint8_t keyboard_scancode_read() {
 	uint8_t scancode = port_byte_in(PS2_CONTROLLER_DATA_PORT);
+	keyboard_buffer[buffer_index++] = scancode_to_char[scancode];
 	keyboard_scancode_print(scancode);
 	return scancode;
 }
