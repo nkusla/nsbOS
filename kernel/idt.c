@@ -1,8 +1,8 @@
 #include "idt.h"
 
-idt_gate_t idt[IDT_NUM_GATES] = {0xf};
+idt_gate_t idt[IDT_NUM_GATES] = {0};
 
-idt_descriptor_t idt_descriptor = {0xf};
+idt_descriptor_t idt_descriptor = {0};
 
 void idt_gate_load(uint8_t index, uint32_t* handler_addr) {
 	uint32_t addr = (uint32_t) handler_addr;

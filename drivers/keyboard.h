@@ -19,7 +19,7 @@
 #define PS2_CONTROLLER_DATA_PORT 0x60
 
 extern uint8_t keyboard_buffer[BUFFER_SIZE];
-extern uint8_t input_finished;
+extern uint8_t enter_pressed;
 
 void keyboard_scancode_print(uint8_t scancode);
 uint8_t keyboard_scancode_read();

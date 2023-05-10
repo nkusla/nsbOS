@@ -43,7 +43,7 @@ void __attribute__((cdecl)) isr_generic_handler(interrupt_frame_t frame) {
 }
 
 void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
-	interrupt_handlers[frame.int_num]();
+	interrupt_handlers[frame.int_num](frame);
 
 	port_byte_out(PRIMARY_PIC_COMMAND_PORT, PIC_EOI);
 	if(frame.int_num < 40)
@@ -53,23 +53,28 @@ void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
 void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame) {
 	uint8_t* str = (uint8_t*) frame.ecx;
 	uint32_t size = frame.edx;
+	uint8_t* ptr_enter_pressed = (uint8_t*) frame.esi;
 	uint32_t i = 0;
+
 	if(frame.eax == 4) {
-		print_string(str, LIGHT_BLUE);
+		print_string(str, WHITE);
 	}
 	else if(frame.eax == 3) {
-		while(!input_finished) {
-			keyboard_scancode_read();
+		if(enter_pressed) {
+			while(keyboard_buffer[i] != '\n' && i <= size) {
+				str[i] = keyboard_buffer[i];
+				i++;
+			}
+			*ptr_enter_pressed = enter_pressed;
+			enter_pressed = 0;
+			return;
 		}
-		while(keyboard_buffer[i] != '\n' && i <= size) {
-			str[i] = keyboard_buffer[i];
-			i++;
-		}
+		*ptr_enter_pressed = 0;
 	}
 	else {}
 }
 
-static void __attribute__((cdecl)) system_clock_handler() { }
+void __attribute__((cdecl)) system_clock_handler(interrupt_frame_t frame) {}
 
 void __attribute__((cdecl)) interrupt_handlers_setup() {
 	for(int i = 0; i <= 31; ++i)

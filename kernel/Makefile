@@ -19,7 +19,7 @@ KERNEL_BIN=$(BUILD_DIR)/kernel.bin
 KERNEL_DEBUG=$(DEBUG_DIR)/kernel.dbg
 
 GCC_WARNINGS=-Wno-incompatible-pointer-types
-GCC_FLAGS=-g -c -m32 -march=i386 -fno-pic -ffreestanding -fno-stack-protector $(GCC_WARNINGS)
+GCC_FLAGS=-g -c -m32 -march=i386 -O0 -fno-pic -ffreestanding -fno-stack-protector $(GCC_WARNINGS)
 NASM_FLAGS=-g -f elf32
 LD_FLAGS=-m elf_i386 --oformat elf32-i386
 LD_SCRIPT=link.ld
