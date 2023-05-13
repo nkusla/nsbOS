@@ -14,7 +14,7 @@ KERNEL_NUM_SECTORS=14
 SHELL_NUM_SECTORS=4
 QEMU_FLAGS=-fda $(DISK_IMG) -m 128M
 QEMU_DEBUG_FLAGS=-gdb tcp::26000 -S
-PANDOC_FLAGS=--from=gfm -V geometry:margin=1.2in --resource-path $(DOCS_DIR)/
+PANDOC_FLAGS=-V geometry:margin=1.2in --resource-path $(DOCS_DIR)/
 
 .PHONY: bootloader kernel bootdisk debug shell docs
 
