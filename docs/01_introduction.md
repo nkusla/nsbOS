@@ -26,4 +26,6 @@ Most of these tools come pre-installed on all Linux distros. Installation on Arc
 	sudo pacman -S binutils nasm gcc gdb make qemu-desktop
 ```
 
+
+
 <div style="page-break-after: always; visibility: hidden">\pagebreak</div>

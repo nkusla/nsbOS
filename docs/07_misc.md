@@ -11,7 +11,9 @@ In order to build the entire operating system, you can simply run `make` from ro
 
 After every of these steps, multiple `bin` files get created. Finally, bootloader, kernel and shell binary files are added together to produce final `disk.img` file. This file is a raw binary file and it basically represents our floppy disk which will get loaded into virtual machine. Besides disk image file, there are other object and elf files that get produced during build process. These files are saved in `build/` directory in separate subdirectories.
 
-Other components can simply be build by calling `make` and passing component name. For example this command will only build shell:
+Building stage will also produce debug files which get stored inside of `debug/` directory.
+
+Additonally, components can separatly be built by calling `make` and passing component name. For example this command will only build shell:
 ```
 	make shell
 ```
@@ -27,3 +29,15 @@ This will load `disk.img` as a floppy disk and run virtual machine with some oth
 
 
 # Debugging
+
+\
+As mentioned above, building stage will produce some files that are useful for debugging, so these files are passed to the `gdb` debugger. In order to start debugging you should execute following commands:
+
+```
+	make run_debug
+	make debug
+```
+
+The first command will pass OS image to the `qemu` virtual machine and it will wait for the debugger to connect to it. The second command will launch `gdb` and it will connect to previously launched virtual machine.
+
+Debugger configurations are stored in file `.gdbinit`. This file defines how debugger should display information, which debug files to load and some other configurations.
