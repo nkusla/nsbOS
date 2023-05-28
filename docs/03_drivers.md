@@ -6,7 +6,25 @@ To interact with physical devices such as the monitor, keyboard, and mouse, they
 ## Video driver
 
 \
-The video memory is memory-mapped starting from address `0xb8000`. For simplicity, the screen resolution is set to 25x80, which corresponds to the basic VGA mode. In this mode, we can only write colored text to the screen. Each character displayed on the screen is represented by 2 bytes. The first byte represents the ASCII value of the character, while the second byte represents the background and foreground colors.
+The video memory is memory-mapped starting from address `0xb8000`. For simplicity, the screen resolution is set to 25x80, which corresponds to the basic VGA mode called `text mode 0`. In this mode, we can only write colored text to the screen. Each character displayed on the screen is represented by 2 bytes. The first byte represents the ASCII value of the character, while the second byte represents the background and foreground colors. Following table shows how background and foreground colors are encoded in color byte:
+
+|	 Bit	|  7  | 654	|  3  | 210 |
+|   :---:	|:---:|:---:|:---:|:---:|
+|	Color	| background bright bit | background | foreground bright bit | foreground |
+
+
+Following table shows how each color is encoded with 3 bits:
+
+|	Value	|	Color	|
+|	:---:	|	:---:	|
+|	 000	|	Black	|
+|	 001	|	Blue	|
+|	 010	|	Green	|
+|	 011	|	Cyan	|
+|	 100	|	Red	|
+|	 101	|	Meganta	|
+|	 110	|	Brown	|
+|	 111	|	Light Gray	|
 
 ## Keyboard driver
 

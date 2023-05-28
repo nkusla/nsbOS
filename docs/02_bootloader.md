@@ -3,7 +3,7 @@
 \
 When the computer turns on, it loads and starts executing the BIOS code. The BIOS then searches for bootable devices. In this case, it looks for a floppy disk that contains a boot sector. The boot sector is the first memory block, which is 512 bytes in size and contains a special value known as the _magic number_.
 
-_The magic number_ serves as a flag for the BIOS, indicating that the sector contains executable bootloader code. It conventionally resides at the end of the sector (last 2 bytes) and is represented by the value `0x55aa`. So byte `0x55aa` should be located on address `0x1fe`.
+_The magic number_ serves as a flag for the BIOS, indicating that the sector contains executable bootloader code. It conventionally resides at the end of the sector (last 2 bytes) and is represented by the value `0x55aa`. So byte `0x55aa` should be located at address `0x1fe`.
 
 ![Magic number at the end of bootsector](images/boot_sector_magic_number.png)
 
