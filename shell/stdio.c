@@ -3,8 +3,12 @@
 int32_t atoi(uint8_t* str, uint32_t base) {
 	int32_t result = 0;
 	uint8_t digit;
+	uint32_t i = 0;
 
-	for (int i = 0; str[i] != '\0'; ++i) {
+	if(str[0] == '-')
+		i++;
+
+	for (; str[i] != '\0'; ++i) {
 		digit = str[i] - '0';
 		if(digit >= 0 && digit <= 9)
 			result = base * result + digit;
@@ -60,6 +64,21 @@ uint32_t strlen(uint8_t* str) {
 	return i;
 }
 
+uint32_t strcmp(uint8_t* str1, uint8_t* str2) {
+	uint32_t i = 0;
+
+	while(str1[i] != 0 || str2[i] != 0) {
+		if(str1[i] > str2[i])
+			return 1;
+		else if(str1[i] < str2[i])
+			return -1;
+		else
+			i++;
+	}
+
+	return 0;
+}
+
 void printf(uint8_t* str, ...) {
 	uint32_t j = 0;
 	uint8_t buffer[50] = {0};
@@ -67,6 +86,7 @@ void printf(uint8_t* str, ...) {
 	va_list vl;
 
 	va_start(vl, str);
+
 	for(uint32_t i = 0; str[i] != '\0'; ++i) {
 		if(str[i] == '%') {
 			switch(str[++i]) {
@@ -88,25 +108,29 @@ void printf(uint8_t* str, ...) {
 
 void scanf(uint8_t* str, ...) {
 	uint32_t j = 0;
-	uint8_t enter_pressed = 0;
+	uint32_t read_size = 0;
 	uint8_t buffer[50] = {0};
 	va_list vl;
 
-	while(!enter_pressed) {
-		read(buffer, 50, &enter_pressed);
-	}
+	while(!read_size)
+		read(buffer, 50, &read_size);
 
 	va_start(vl, str);
 
-	for(uint32_t i = 0; str[i] != '\0'; ++i) {
-		if(str[i] == '%') {
+	for(uint32_t i = 0; str[i] != '\0'; ++i)
+		if(str[i] == '%')
 			switch(str[++i]) {
-			case 'd': {
-				*va_arg(vl, uint32_t*) = atoi(&buffer[j], 10);
-			} break;
+
+				case 'd': {
+					*va_arg(vl, uint32_t*) = atoi(&buffer[j], 10);
+				} break;
+
+				case 's': {
+					uint8_t* ptr = va_arg(vl, uint8_t*);
+					strcpy(ptr, buffer);
+					ptr[strlen(buffer)] = 0;
+				} break;
 			}
-		}
-	}
 
 	va_end(vl);
 }

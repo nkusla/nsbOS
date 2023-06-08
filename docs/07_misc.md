@@ -41,3 +41,19 @@ As mentioned above, building stage will produce some files that are useful for d
 The first command will pass OS image to the `qemu` virtual machine and it will wait for the debugger to connect to it. The second command will launch `gdb` and it will connect to previously launched virtual machine.
 
 Debugger configurations are stored in file `.gdbinit`. This file defines how debugger should display information, which debug files to load and some other configurations.
+
+# References
+
+\
+The development of an operating system requires a deep understanding of various concepts and techniques. The following references have been really helpful in the creation of this project: \
+
+- OSDev Wiki - _(https://wiki.osdev.org/)_
+
+- Writing a simple operating system from scratch by Nick Blundell - \
+  _(https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)_
+
+- Operating systems: from 0 to 1 - _(https://github.com/tuhdo/os01)_
+
+- The little book about OS development - _(https://littleosbook.github.io/)_
+
+- Writing my own operating system - _(https://dev.to/frosnerd/series/9585)_

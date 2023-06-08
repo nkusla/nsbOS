@@ -27,6 +27,11 @@ void keyboard_scancode_print(uint8_t scancode) {
 		enter_pressed = 1;
 		buffer_index = 0;
 	}
+	else if(scancode == BACKSPACE) {
+		keyboard_buffer[--buffer_index] = '\0';
+		print_backspace();
+
+	}
 	else if(scancode <= 0x3a && scancode_to_char[scancode] != '?') {
 		print_char(scancode_to_char[scancode], WHITE);
 		keyboard_buffer[buffer_index++] = scancode_to_char[scancode];

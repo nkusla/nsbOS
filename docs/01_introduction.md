@@ -1,5 +1,5 @@
 # Not so big Operating System (nsbOS)
-By Nikola Kušlaković - [repository link](https://github.com/nkusla/nsbOS)
+By Nikola Kušlaković at [github.com/nkusla/nsbOS](https://github.com/nkusla/nsbOS)
 
 ## Introduction
 
@@ -25,7 +25,5 @@ Most of these tools come pre-installed on all Linux distros. Installation on Arc
 ```
 	sudo pacman -S binutils nasm gcc gdb make qemu-desktop
 ```
-
-
 
 <div style="page-break-after: always; visibility: hidden">\pagebreak</div>
