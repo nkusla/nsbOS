@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-int32_t atoi(uint8_t* str, uint32_t base) {
+int32_t atoi(uint8_t* str) {
 	int32_t result = 0;
 	uint8_t digit;
 	uint32_t i = 0;
@@ -11,7 +11,7 @@ int32_t atoi(uint8_t* str, uint32_t base) {
 	for (; str[i] != '\0'; ++i) {
 		digit = str[i] - '0';
 		if(digit >= 0 && digit <= 9)
-			result = base * result + digit;
+			result = 10 * result + digit;
 		else
 			return 0;
 	}
@@ -22,9 +22,9 @@ int32_t atoi(uint8_t* str, uint32_t base) {
 	return result;
 }
 
-void itoa(int32_t value, uint8_t* str, uint8_t base) {
+void itoa(int32_t value, uint8_t* str) {
 	uint32_t i = 0, j = 0;
-	uint32_t digit;
+	int32_t digit;
 	uint8_t temp;
 
 	if(value == 0) {
@@ -33,10 +33,16 @@ void itoa(int32_t value, uint8_t* str, uint8_t base) {
 		return;
 	}
 
+	if(value < 0) {
+		str[i++] = '-';
+		value *= -1;
+		j++;
+	}
+
 	while(value != 0) {
-		digit = value % base;
+		digit = value % 10;
 		str[i++] = digit + 48;
-		value /= base;
+		value /= 10;
 	}
 
 	str[i--] = '\0';
@@ -91,7 +97,7 @@ void printf(uint8_t* str, ...) {
 		if(str[i] == '%') {
 			switch(str[++i]) {
 			case 'd': {
-				itoa(va_arg(vl, uint32_t), temp, 10);
+				itoa(va_arg(vl, uint32_t), temp);
 				strcpy(&buffer[j], temp);
 				j += strlen(temp);
 			} break;
@@ -113,7 +119,7 @@ void scanf(uint8_t* str, ...) {
 	va_list vl;
 
 	while(!read_size)
-		read(buffer, 50, &read_size);
+		read_size = read(buffer, 50);
 
 	va_start(vl, str);
 
@@ -122,7 +128,7 @@ void scanf(uint8_t* str, ...) {
 			switch(str[++i]) {
 
 				case 'd': {
-					*va_arg(vl, uint32_t*) = atoi(&buffer[j], 10);
+					*va_arg(vl, uint32_t*) = atoi(&buffer[j]);
 				} break;
 
 				case 's': {

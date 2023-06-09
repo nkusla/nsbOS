@@ -42,10 +42,19 @@ The first command will pass OS image to the `qemu` virtual machine and it will w
 
 Debugger configurations are stored in file `.gdbinit`. This file defines how debugger should display information, which debug files to load and some other configurations.
 
-# References
+# References and future work
 
 \
-The development of an operating system requires a deep understanding of various concepts and techniques. The following references have been really helpful in the creation of this project: \
+The development of an operating system requires a deep understanding of various concepts and techniques. This project produced simple operating system, so there are still opportunities for future development and work. Here are some potential areas of focus for future work:
+
+- Virtual memory
+- Processes and threads
+- Better security and permissions
+- File system
+- Better shell for user-space
+
+\
+The following references have been really helpful in the creation of this project: \
 
 - OSDev Wiki - _(https://wiki.osdev.org/)_
 

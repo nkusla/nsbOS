@@ -1,11 +1,18 @@
 #include "stdio.h"
 
 int main() {
-	uint8_t str[10] = {0};
-	uint32_t a, b;
-	printf("A = ");
-	scanf("%d", &a);
-	printf("B = ");
-	scanf("%d", &b);
-	printf("A + B = %d", a + b);
+	uint32_t num, operand, sum = 0;
+	uint32_t i = 0;
+
+	printf("NUMBER OF OPERANDS: ");
+	scanf("%d", &num);
+
+	for(; i < num; ++i) {
+		printf("OPERAND %d: ", i+1);
+		scanf("%d", &operand);
+		sum += operand;
+	}
+
+	printf("SUM: %d", sum);
+
 }

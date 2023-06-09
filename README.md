@@ -57,9 +57,9 @@ make docs
   - [x] Internal interrupt service routines (ISR)
   - [x] Interrupt request routines (ISQ) and PIC remapping
   - [x] Interrupt descriptor table
-- [ ] Other
+- [x] Other
   - [x] Implement basic stdio library
   - [x] Write linker script
   - [x] Simple user program
-  - [ ] Reimplement print_string method
-  - [ ] Makefiles refactoring
+  - [x] Reimplement print_string method
+  - [x] Makefiles refactoring

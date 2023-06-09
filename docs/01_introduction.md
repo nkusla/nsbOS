@@ -1,5 +1,12 @@
-# Not so big Operating System (nsbOS)
-By Nikola Kušlaković at [github.com/nkusla/nsbOS](https://github.com/nkusla/nsbOS)
+# Not so big Operating System (nsbOS) v1.0
+
+Author: Nikola Kušlaković
+
+Occupation: Student at Faculty of Technical Sciences, University of Novi Sad, Serbia
+
+Date: 8. June 2023.
+
+Source: [github.com/nkusla/nsbOS](https://github.com/nkusla/nsbOS)
 
 ## Introduction
 

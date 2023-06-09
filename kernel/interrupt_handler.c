@@ -53,7 +53,6 @@ void __attribute__((cdecl)) irq_generic_handler(interrupt_frame_t frame) {
 void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame) {
 	uint8_t* str = (uint8_t*) frame.ecx;
 	uint32_t size = frame.edx;
-	uint32_t* ptr_read_size = (uint32_t*) frame.esi;
 	uint32_t i = 0;
 
 	if(frame.eax == 4) {
@@ -65,11 +64,11 @@ void __attribute__((cdecl)) sys_call_handler(interrupt_frame_t frame) {
 				str[i] = keyboard_buffer[i];
 				i++;
 			}
-			*ptr_read_size = i;
+			frame.eax = i;
 			enter_pressed = 0;
 			return;
 		}
-		*ptr_read_size = 0;
+		frame.eax = 0;
 	}
 	else {}
 }

@@ -20,7 +20,7 @@ In contrast, protected mode operates with a 32-bit address space and provides en
 - Updating control registers: Control registers within the CPU are modified to activate protected mode and configure system behavior
 - Updating segment registers: Segment registers within the CPU are updated to establish memory segmentation, enabling proper memory access and addressing
 
-By completing these steps, the bootloader successfully switches the CPU from real mode to protected mode
+By completing these steps, the bootloader successfully switches the CPU from real mode to protected mode and passes the execution to the kernel.
 
 ![Lower memory layout](images/lower_memory_layout.png)
 
