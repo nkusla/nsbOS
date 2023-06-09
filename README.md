@@ -4,6 +4,9 @@ This is my take on making simple yet usable and **not so big Operating system**.
 not meant to be robust and have all advanced components that are present in modern operating systems.
 The point of this hobby project is to learn and fully understand low-level operating system events which are mostly taken for granted today. Besides that, this journey required understanding how compiler, linker, build system and debugger work together and can be used to develop software.
 
+\
+![Hello friend message](docs/images/hello_friend_message.png)
+
 ## Required tools and installation
 
 This project uses following things for development and building toolchain:
