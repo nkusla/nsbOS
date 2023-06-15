@@ -52,7 +52,7 @@ kernel_inspect:
 	@objdump -S $(KERNEL_ELF)
 
 docs:
-	@pandoc $(PANDOC_FLAGS) $(DOCS_DIR)/*.md -o $(DOCS_DIR)/manual.pdf
+	@pandoc $(PANDOC_FLAGS) $(DOCS_DIR)/*.md -o $(DOCS_DIR)/nsbOS-manual.pdf
 
 clean:
 	@rm -rf $(BUILD_DIR)/* $(DEBUG_DIR)/*
